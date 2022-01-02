@@ -7,11 +7,27 @@ namespace ThinkingLogic
     {
         static void Main(string[] args)
         {
-            Student("Manisha",23,"Female");
+            var data =Info("Manisha",'F',23);
+            Console.WriteLine(data.name);
+            Console.WriteLine(data.gender);
+            Console.WriteLine(data.age);
+
         }
-        public static void Student(string name,int age,string gender)
+        public static StudentInfo Info(string name,char gender,int age)
         {
-            Console.WriteLine("Name: {0} ,Age :{1} ,Sex: {2}", name, age, gender);
-        }
+            var info = new StudentInfo()
+            {
+                name = name,
+                gender = gender,
+                age = age
+            };
+            return info;
+        }  
+    }
+    public class StudentInfo
+    {
+        public string name {get; set; }
+        public char gender { get; set; }
+        public int age { get; set; }
     }
 }
