@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 
 namespace ThinkingLogic
@@ -7,63 +8,64 @@ namespace ThinkingLogic
     {
         static void Main(string[] args)
         {
-            Console.Write("Enter your FirstName? ");
-            var fName = Console.ReadLine();
-
-            Console.Write("Enter your LastName? ");
-            var lName = Console.ReadLine();
-
-            
-            Console.Write("Enter your date of birth in: ");
-            var dateOfBirth = Console.ReadLine();
-
-            
-            var date = Convert.ToDateTime(dateOfBirth);
-            //Student student1 = new Student();
-            Student.GetAge(date,fName+" "+lName );
-        }
-    }
-     public  class Student
-    {
-        public int Id;
-        public string FirstName;
-        public string LastName;
-        public static void GetAge(DateTime studentDateOfBirth,string name)
-        {
-            DateTime date = DateTime.Now.AddMonths(-11);
-            //int presentMonth = Int32.Parse(DateTime.Now.Month.ToString());
-            //int presentDay = Int32.Parse(DateTime.Now.Day.ToString());
-            //int presentYear = DateTime.Now.Year;
-            int presentMonth = Int32.Parse(date.Month.ToString());
-            int presentDay = Int32.Parse(date.Day.ToString());
-            int presentYear = date.Year;
-            int pastMonth = Int32.Parse(studentDateOfBirth.Month.ToString());
-            int pastDay = Int32.Parse(studentDateOfBirth.Day.ToString());
-            int pastYear = studentDateOfBirth.Year;
-            var age = presentYear- pastYear;
-            if (age > 0)
+            List<int> numbers = new List<int>() { 1, 2, 3, 4, 56, 7, 8, 9, 0, 12, 12, 45, 67, 98, 100 };
+            List<int> evenList = new List<int>();
+            List<int> oddList = new List<int>();
+            var result = EvenNumber(numbers);
+            foreach (var item in EvenNumber(numbers))
             {
-                if (presentMonth > pastMonth)
+                Console.Write(item + ", ");
+            }
+            Console.WriteLine();
+            var numberList = ReturnEvenAndOddList(numbers, evenList, oddList);
+            foreach(var number in numberList.OddNumbers)
+            {
+                Console.Write(number+" ");
+            }
+            Console.WriteLine();
+            foreach (var number in numberList.EvenNumbers)
+            {
+                Console.Write(number+" ");
+            }
+           
+        }
+        public static List<int> EvenNumber(List<int> numbers)
+        {
+            List<int> evenList = new List<int>();
+            for (int i = 0; i < numbers.Count; i++)
+            {
+                if (numbers[i] % 2 == 0)
                 {
-                    if (presentDay > pastDay)
-                    {
-                        Console.WriteLine("{0} is {1} year old now.", name, age);
-                    }
-                    else
-                    {
-                        Console.WriteLine("{0} is {1} year old now.", name, age-1);
-                    }
+                    evenList.Add(numbers[i]);
+                }
+            }
+            return evenList;
+        }
+        public static TypeOfListNumber ReturnEvenAndOddList(List<int> numbers,List<int> even,List<int> odd)
+        {
+            for (int i = 0; i < numbers.Count; i++)
+            {
+                if (numbers[i] % 2 == 0)
+                {
+                    even.Add(numbers[i]);
                 }
                 else
                 {
-                    Console.WriteLine("{0} is {1} year old now.", name, age - 1);
+                    odd.Add(numbers[i]);
                 }
-               
             }
-            else
-            {
-                Console.WriteLine("Invalid age");
-            }
+            TypeOfListNumber typeOfList = new TypeOfListNumber();
+            typeOfList.EvenNumbers = even;
+            typeOfList.OddNumbers = odd;
+
+            return typeOfList;
         }
     }
+        public class TypeOfListNumber
+        {
+            public List<int> EvenNumbers { get; set; }
+            public List<int> OddNumbers { get; set; }
+        }
+
+    
 }
